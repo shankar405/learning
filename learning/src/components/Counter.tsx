@@ -1,22 +1,16 @@
 
+import { useAppSelector, useAppDispatch } from '../app/hook'
 
-interface props{
-    count:number
-    setCount:React.Dispatch<React.SetStateAction<number>>
-}
-const Counter = ({count,setCount}:props) => {
-     function increment(){
- setCount((prev)=>prev+1)
- }
- function decrement (){
- setCount((prev)=>prev-1)
- }
+import { decrement, increment } from '../features/counter/counterSlice'
+const Counter = () => {
+  const count = useAppSelector((state) => state.counter.value)
+  const dispatch = useAppDispatch()
   return (
    <div>
         <p>{count}</p>
-        <div>
-          <button onClick={increment}>+</button>
-          <button disabled={count===0} onClick={decrement}>-</button>
+        <div className='flex flex-col gap-4'>
+          <button onClick={()=>dispatch(increment())}>+</button>
+          <button disabled={count===0}  onClick={()=>dispatch(decrement())}>-</button>
         </div>
       </div>
   )

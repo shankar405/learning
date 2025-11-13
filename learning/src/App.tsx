@@ -1,18 +1,48 @@
 // import { useState } from 'react'
 
 import './App.css'
-import Button from './components/Button'
-// import Counter from './components/Counter'
-import Card from './components/Card'
+// import Button from './components/Button'
+import Counter from './components/Counter'
+// import Card from './components/Card'
+import { useAppSelector, useAppDispatch } from './app/hook'
 
+import { toggleTheme } from './features/theme/themeSlice'
+import { useEffect } from 'react'
+
+  
 function App() {
   // const [count, setCount] = useState(0)
-
+const theme = useAppSelector((state) => state.theme.value)
+  const dispatch = useAppDispatch()
+    useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
   return (
-    <div className='flex justify-center gap-2  '>
-      {/* <h2 className='bg-red-500'>Counter app</h2>
-     <Counter count={count} setCount={setCount}/> */}
-     <Card>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-black dark:text-white transition-colors">
+       <button
+      onClick={()=>dispatch(toggleTheme("dark"))}
+    className={`p-2 rounded-full transition-all duration-300
+    ${theme === "dark" 
+      ? "bg-gray-800 text-gray-200" 
+      : "bg-yellow-200 text-gray-800"}`}
+>
+  {theme === "dark" ? "🌙" : "☀️"}
+    </button>
+
+       <button
+      onClick={()=>dispatch(toggleTheme("light"))}
+      className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-all"
+      aria-label="Toggle theme"
+    >
+      {theme === "dark" ? "🌙" : "☀️"}
+    </button>
+      <h2 className='bg-red-500'>Counter app</h2>
+     <Counter />
+     {/* <Card>
       <div className='min-h-[400px] min-w-[250px] text-center'>
         <div className='w-[180px] mx-auto py-2'>
 
@@ -44,7 +74,7 @@ function App() {
       <p>description</p>
       <Button variant='outline' >Add</Button>
       </div>
-     </Card>
+     </Card> */}
     </div>
   )
 }
