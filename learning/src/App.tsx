@@ -1,6 +1,7 @@
 // import { useState } from 'react'
 
 import './App.css'
+import Product from './components/Product'
 import Todo from './components/Todo'
 // import Button from './components/Button'
 // import Counter from './components/Counter'
@@ -24,7 +25,8 @@ function App() {
 //   }, [theme]);
   return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-black dark:text-white transition-colors">
-      <Todo/>
+      {/* <Todo/> */}
+      <Product/>
        {/* <button
       onClick={()=>dispatch(toggleTheme("dark"))}
     className={`p-2 rounded-full transition-all duration-300
